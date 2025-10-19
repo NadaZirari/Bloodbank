@@ -2,6 +2,7 @@ package dao;
 
 import model.Association;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 public class AssociationDAO {
 
@@ -26,4 +27,19 @@ public class AssociationDAO {
             em.close();
         }
     }
+   
+    public Association findByDonneurId(Long donneurId) {
+        EntityManager em = JpaUtil.getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT a FROM Association a WHERE a.donneur.id = :id", Association.class)
+                    .setParameter("id", donneurId)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+        } finally {
+            em.close();
+        }
+    }
+
 }

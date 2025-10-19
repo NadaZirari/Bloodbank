@@ -8,6 +8,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 public class DonneurServlet extends HttpServlet {
 
@@ -15,9 +16,32 @@ public class DonneurServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("donneurs", donneurService.listerTous());
+        String action = request.getParameter("action");
+        String idParam = request.getParameter("id");
+
+        if ("form".equals(action)) { // <-- ajouter cette condition
+            // On prépare l'affichage du formulaire
+            request.getRequestDispatcher("donneurForm.jsp").forward(request, response);
+            return;
+        }
+
+        if ("supprimer".equals(action) && idParam != null) {
+            long id = Long.parseLong(idParam);
+            donneurService.supprimer(id);
+            response.sendRedirect("donneur");
+            return;
+        }
+
+        // Sinon, afficher la liste des donneurs
+        List<Donneur> donneurs = donneurService.listerTous();
+        for (Donneur d : donneurs) {
+            d.setReceveur(donneurService.getReceveurPourDonneur(d.getId()));
+        }
+        request.setAttribute("donneurs", donneurs);
+
         request.getRequestDispatcher("listeDonneurs.jsp").forward(request, response);
     }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,9 +71,20 @@ public class DonneurServlet extends HttpServlet {
         }
 
         // Création du donneur avec statut et contre-indication
-        Donneur d = new Donneur(nom, prenom, telephone, cin, dateNaissance,
-                poids, sexe, groupe,
-                StatutDonneur.DISPONIBLE, false);
+     
+        Donneur d = new Donneur(
+                nom,
+                prenom,
+                telephone,
+                cin,
+                dateNaissance,
+                poids,
+                sexe,
+                groupe,
+                statut,           // utiliser le statut calculé
+                aContreIndication // utiliser le vrai état de contre-indication
+        );
+
         donneurService.ajouterDonneur(d);
 
         response.sendRedirect("donneur");

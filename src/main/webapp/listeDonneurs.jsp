@@ -5,7 +5,28 @@
 <html>
 <head>
     <title>Liste des Donneurs</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Lien Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
     <style>
+    .btn-ajouter {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px auto;
+    background-color: #2ecc71; /* vert agréable */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.btn-ajouter:hover {
+    background-color: #27ae60; /* vert plus foncé au survol */
+}
+    
         body {
             font-family: Arial, sans-serif;
             background-color: #fff5f5; /* beige clair */
@@ -59,7 +80,14 @@
     </style>
 </head>
 <body>
-    <h2>Liste des Donneurs</h2>
+     <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 style="display:inline-block;">Liste des Donneurs</h2>
+          <a href="donneur?action=form" class="btn btn-success" style="float:right; margin-top:10px;">Ajouter Donneur</a>
+      
+      
+    </div>
+  
+
     <table>
         <tr>
             <th>ID</th>
@@ -77,24 +105,30 @@
                 <td>${d.prenom}</td>
                 <td>${d.groupeSanguin}</td>
                 <td>${d.statut}</td>
-                <td>
-                    <c:choose>
-                        <c:when test="${not empty d.receveur}">
-                            ${d.receveur.nom} ${d.receveur.prenom}
-                        </c:when>
-                        <c:otherwise>
-                            Aucun
-                        </c:otherwise>
-                    </c:choose>
-                </td>
+   <td>
+    <c:choose>
+        <c:when test="${not empty d.receveur}">
+            ${d.receveur.nom} ${d.receveur.prenom}
+        </c:when>
+        <c:otherwise>
+            Aucun
+        </c:otherwise>
+    </c:choose>
+</td>
+   
+   
+   
+                
                 <td>
                     <a href="donneur?action=edit&id=${d.id}" class="btn btn-modifier">Modifier</a>
-                    <a href="donneur?action=supprimer&id=${d.id}" class="btn btn-supprimer" 
-                       onclick="return confirm('Voulez-vous vraiment supprimer ce donneur ?')">Supprimer</a>
+                   <a href="donneur?action=supprimer&id=${d.id}" class="btn btn-supprimer" 
+   onclick="return confirm('Voulez-vous vraiment supprimer ce donneur ?')">Supprimer</a>
+                   
                 </td>
             </tr>
         </c:forEach>
     </table>
-    <a href="donneur?action=form">Ajouter Donneur</a>
+    
+    
 </body>
 </html>

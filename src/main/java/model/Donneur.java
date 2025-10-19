@@ -22,11 +22,15 @@ public class Donneur {
     private double poids;
     private String sexe;
     private boolean contreIndication; 
+    
 
     @Column(name = "groupe_sanguin")
     private String groupeSanguin;
-
-
+    private Long receveurId;
+    @OneToOne
+    @JoinColumn(name = "receveur_id") // colonne FK dans la table donneur
+    private Receveur receveur;
+    
     @Enumerated(EnumType.STRING)
     private StatutDonneur statut;
     
@@ -93,5 +97,9 @@ public class Donneur {
     public void setStatut(StatutDonneur statut) { this.statut = statut; }
     public boolean hasContreIndication() { return contreIndication; }
     public void setContreIndication(boolean contreIndication) { this.contreIndication = contreIndication; }
+    public Receveur getReceveur() { return receveur; }
+    public void setReceveur(Receveur receveur) { this.receveur = receveur; }
+    public Long getReceveurId() { return receveurId; }
+    public void setReceveurId(Long receveurId) { this.receveurId = receveurId; }
 }
 
