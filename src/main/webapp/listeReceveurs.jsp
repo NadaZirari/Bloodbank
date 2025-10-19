@@ -76,12 +76,15 @@
 </td>
                 
                 <td>
-                    <a href="modifierReceveur?id=${r.id}" class="btn btn-sm btn-outline-warning">
-    <i class="bi bi-pencil"></i>
-</a>
-<a href="supprimerReceveur?id=${r.id}" class="btn btn-sm btn-outline-danger">
+    <a href="receveur?action=edit&id=${r.id}" class="btn btn-sm btn-outline-warning">
+        <i class="bi bi-pencil"></i>
+    </a>
+
+    <a href="receveur?action=supprimer&id=${r.id}" class="btn btn-sm btn-outline-danger">
     <i class="bi bi-trash"></i>
 </a>
+    
+
                     
                 </td>
                  <td>

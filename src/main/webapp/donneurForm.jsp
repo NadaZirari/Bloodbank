@@ -100,6 +100,14 @@
         <option>AB-</option>
         <option>AB+</option>
     </select>
+<label>Contre-indications médicales :</label>
+    <div class="checkbox-group">
+        <input type="checkbox" name="maladies" value="hepatite"> Hépatite B/C<br>
+        <input type="checkbox" name="maladies" value="viH"> VIH<br>
+        <input type="checkbox" name="maladies" value="diabete"> Diabète insulino-dépendant<br>
+        <input type="checkbox" name="maladies" value="grossesse"> Grossesse<br>
+        <input type="checkbox" name="maladies" value="allaitement"> Allaitement
+    </div>
 
     <button type="submit">Ajouter</button>
 </form>

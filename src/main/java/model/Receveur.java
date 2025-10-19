@@ -44,6 +44,18 @@ public class Receveur {
         this.situation = situation;
         this.etat = EtatReceveur.EN_ATTENTE;
     }
+    public Receveur(Long id, String nom, String prenom, String telephone, String cin,
+            LocalDate dateNaissance, String sexe, String groupeSanguin, SituationReceveur situation) {
+this.id = id;
+this.nom = nom;
+this.prenom = prenom;
+this.telephone = telephone;
+this.cin = cin;
+this.dateNaissance = dateNaissance;
+this.sexe = sexe;
+this.groupeSanguin = groupeSanguin;
+this.situation = situation;
+}
 
     // Getters et Setters
     public Long getId() { return id; }

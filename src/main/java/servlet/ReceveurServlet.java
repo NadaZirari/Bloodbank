@@ -23,7 +23,14 @@ public class ReceveurServlet extends HttpServlet {
         if ("form".equals(action)) {
             request.setAttribute("situations", SituationReceveur.values());
             request.getRequestDispatcher("receveurForm.jsp").forward(request, response);
-        } 
+        }   else if
+        ("edit".equals(action) && idParam != null) {
+            Long id = Long.parseLong(idParam);
+            Receveur r = receveurService.chercher(id); 
+            request.setAttribute("receveur", r);
+            request.setAttribute("situations", SituationReceveur.values());
+            request.getRequestDispatcher("receveurForm.jsp").forward(request, response);
+            }
         else if ("supprimer".equals(action) && idParam != null) {
             Long id = Long.parseLong(idParam);
             receveurService.supprimer(id);  
@@ -37,6 +44,7 @@ public class ReceveurServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	 String idParam = request.getParameter("id");
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
         String telephone = request.getParameter("telephone");
@@ -47,13 +55,18 @@ public class ReceveurServlet extends HttpServlet {
 
         LocalDate dateNaissance = LocalDate.parse(date);
         String situationStr = request.getParameter("situation");
-        SituationReceveur situation = SituationReceveur.valueOf(situationStr);
+        SituationReceveur situation = SituationReceveur.valueOf(request.getParameter("situation"));
 
-        Receveur r = new Receveur(nom, prenom, telephone, cin, dateNaissance, sexe, groupe, situation);
-        receveurService.ajouterReceveur(r);
+        if (idParam != null && !idParam.isEmpty()) { // modification
+            Long id = Long.parseLong(idParam);
+            Receveur r = new Receveur(id, nom, prenom, telephone, cin, dateNaissance, sexe, groupe, situation);
+            receveurService.mettreAJour(r); // méthode à créer dans ton service
+        } else { // ajout
+            Receveur r = new Receveur(nom, prenom, telephone, cin, dateNaissance, sexe, groupe, situation);
+            receveurService.ajouterReceveur(r);
+        }
 
-        request.setAttribute("receveurs", receveurService.listerTous());
-        request.getRequestDispatcher("listeReceveurs.jsp").forward(request, response);
-    }
+        response.sendRedirect("receveur");
 
+}
 }

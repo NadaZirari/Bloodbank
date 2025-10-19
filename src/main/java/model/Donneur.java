@@ -21,6 +21,7 @@ public class Donneur {
 
     private double poids;
     private String sexe;
+    private boolean contreIndication; 
 
     @Column(name = "groupe_sanguin")
     private String groupeSanguin;
@@ -32,17 +33,20 @@ public class Donneur {
     // Constructeurs
     public Donneur() {}
 
-    public Donneur(String nom, String prenom, String telephone, String cin, LocalDate dateNaissance, double poids, String sexe, String groupeSanguin) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.telephone = telephone;
-        this.cin = cin;
-        this.dateNaissance = dateNaissance;
-        this.poids = poids;
-        this.sexe = sexe;
-        this.groupeSanguin = groupeSanguin;
-    }
-
+    public Donneur(String nom, String prenom, String telephone, String cin,
+            LocalDate dateNaissance, double poids, String sexe, String groupeSanguin,
+            StatutDonneur statut, boolean contreIndication) {
+ this.nom = nom;
+ this.prenom = prenom;
+ this.telephone = telephone;
+ this.cin = cin;
+ this.dateNaissance = dateNaissance;
+ this.poids = poids;
+ this.sexe = sexe;
+ this.groupeSanguin = groupeSanguin;
+ this.statut = statut;
+ this.contreIndication = contreIndication;
+}
     // Getters et Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -72,5 +76,7 @@ public class Donneur {
     public void setGroupeSanguin(String groupeSanguin) { this.groupeSanguin = groupeSanguin; }
     public StatutDonneur getStatut() { return statut; }
     public void setStatut(StatutDonneur statut) { this.statut = statut; }
+    public boolean hasContreIndication() { return contreIndication; }
+    public void setContreIndication(boolean contreIndication) { this.contreIndication = contreIndication; }
 }
 
