@@ -19,7 +19,7 @@
         }
 
         table {
-            width: 80%;
+            width: 90%;
             margin: 20px auto;
             border-collapse: collapse;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -44,22 +44,18 @@
             background-color: #ffcccc;
         }
 
-        a {
-            display: block;
-            width: 200px;
-            margin: 20px auto;
-            padding: 10px;
-            text-align: center;
-            background-color: #b71c1c;
+        .btn {
+            padding: 5px 10px;
+            margin: 2px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
             color: white;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s ease;
         }
 
-        a:hover {
-            background-color: #e53935;
-        }
+        .btn-modifier { background-color: #f39c12; } /* orange */
+        .btn-supprimer { background-color: #e74c3c; } /* rouge */
     </style>
 </head>
 <body>
@@ -71,6 +67,8 @@
             <th>Prénom</th>
             <th>Groupe</th>
             <th>Statut</th>
+            <th>Receveur associé</th>
+            <th>Actions</th>
         </tr>
         <c:forEach var="d" items="${donneurs}">
             <tr>
@@ -79,9 +77,24 @@
                 <td>${d.prenom}</td>
                 <td>${d.groupeSanguin}</td>
                 <td>${d.statut}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${not empty d.receveur}">
+                            ${d.receveur.nom} ${d.receveur.prenom}
+                        </c:when>
+                        <c:otherwise>
+                            Aucun
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td>
+                    <a href="donneur?action=edit&id=${d.id}" class="btn btn-modifier">Modifier</a>
+                    <a href="donneur?action=supprimer&id=${d.id}" class="btn btn-supprimer" 
+                       onclick="return confirm('Voulez-vous vraiment supprimer ce donneur ?')">Supprimer</a>
+                </td>
             </tr>
         </c:forEach>
     </table>
-    <a href="donneurForm.jsp">Ajouter Donneur</a>
+    <a href="donneur?action=form">Ajouter Donneur</a>
 </body>
 </html>
