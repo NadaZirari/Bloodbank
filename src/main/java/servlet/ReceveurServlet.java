@@ -3,6 +3,8 @@ package servlet;
 
 import service.ReceveurService;
 import model.Receveur;
+import model.SituationReceveur;
+import service.ReceveurService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
@@ -28,12 +30,15 @@ public class ReceveurServlet extends HttpServlet {
         String date = request.getParameter("dateNaissance");
         String sexe = request.getParameter("sexe");
         String groupe = request.getParameter("groupeSanguin");
-        String situation = request.getParameter("situation");
+        String situationStr = request.getParameter("situation"); // récupéré du formulaire
 
         LocalDate dateNaissance = LocalDate.parse(date);
+        SituationReceveur situation = SituationReceveur.valueOf(situationStr); // conversion en enum
+
         Receveur r = new Receveur(nom, prenom, telephone, cin, dateNaissance, sexe, groupe, situation);
         receveurService.ajouterReceveur(r);
 
         response.sendRedirect("receveur");
     }
+
 }

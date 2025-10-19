@@ -24,12 +24,15 @@ public class Receveur {
     @Column(name = "groupe_sanguin")
     private String groupeSanguin;
 
-    private String situation; // CRITIQUE, URGENT, NORMAL
-    private String etat; // EN_ATTENTE, SATISFAIT
+    @Enumerated(EnumType.STRING)
+    private SituationReceveur situation;
+
+    @Enumerated(EnumType.STRING)
+    private EtatReceveur etat;
 
     public Receveur() {}
 
-    public Receveur(String nom, String prenom, String telephone, String cin, LocalDate dateNaissance, String sexe, String groupeSanguin, String situation) {
+    public Receveur(String nom, String prenom, String telephone, String cin, LocalDate dateNaissance, String sexe, String groupeSanguin, SituationReceveur situation) {
         this.nom = nom;
         this.prenom = prenom;
         this.telephone = telephone;
@@ -38,7 +41,7 @@ public class Receveur {
         this.sexe = sexe;
         this.groupeSanguin = groupeSanguin;
         this.situation = situation;
-        this.etat = "EN_ATTENTE";
+        this.etat = EtatReceveur.EN_ATTENTE;
     }
 
     // Getters et Setters
@@ -66,9 +69,9 @@ public class Receveur {
     public String getGroupeSanguin() { return groupeSanguin; }
     public void setGroupeSanguin(String groupeSanguin) { this.groupeSanguin = groupeSanguin; }
 
-    public String getSituation() { return situation; }
-    public void setSituation(String situation) { this.situation = situation; }
+    public SituationReceveur getSituation() { return situation; }
+    public void setSituation(SituationReceveur situation) { this.situation = situation; }
 
-    public String getEtat() { return etat; }
-    public void setEtat(String etat) { this.etat = etat; }
+    public EtatReceveur getEtat() { return etat; }
+    public void setEtat(EtatReceveur etat) { this.etat = etat; }
 }

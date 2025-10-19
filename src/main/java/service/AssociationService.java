@@ -1,48 +1,60 @@
 package service;
 
+import dao.AssociationDAO;
+import dao.DonneurDAO;
+import dao.ReceveurDAO;
+import model.Association;
+import model.Donneur;
+import model.EtatReceveur;
+import model.Receveur;
+import model.SituationReceveur;
+import model.StatutDonneur;
 
-import model.*;
-import dao.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AssociationService {
 
     private final DonneurDAO donneurDAO = new DonneurDAO();
     private final ReceveurDAO receveurDAO = new ReceveurDAO();
+    private final AssociationDAO associationDAO = new AssociationDAO();
 
     public boolean associer(Long idDonneur, Long idReceveur) {
-        Donneur donneur = donneurDAO.findById(idDonneur);
-        Receveur receveur = receveurDAO.findById(idReceveur);
+        Donneur d = donneurDAO.findById(idDonneur);
+        Receveur r = receveurDAO.findById(idReceveur);
 
-        if (donneur == null || receveur == null) return false;
+        if (d == null || r == null) return false;
+        if (d.getStatut() != StatutDonneur.DISPONIBLE) return false;
+        if (r.getEtat() != EtatReceveur.EN_ATTENTE) return false;
+        if (!Compatibilite.estCompatible(d.getGroupeSanguin(), r.getGroupeSanguin())) return false;
 
-        // Vérifier compatibilité et disponibilité
-        if (!donneur.getStatut().equals("DISPONIBLE")) return false;
-        if (!receveur.getEtat().equals("EN_ATTENTE")) return false;
-        if (!Compatibilite.estCompatible(donneur.getGroupeSanguin(), receveur.getGroupeSanguin())) return false;
+        Association a = new Association(d, r);
+        associationDAO.save(a);
 
-        donneur.setReceveur(receveur);
-        donneur.setStatut("NON_DISPONIBLE");
-        donneurDAO.update(donneur);
+        d.setStatut(StatutDonneur.NON_DISPONIBLE);
+        donneurDAO.update(d);
 
-        receveur.getDonneurs().add(donneur);
-        receveur.verifierEtat();
-        receveurDAO.update(receveur);
+        r.setEtat(EtatReceveur.SATISFAIT);
+        receveurDAO.update(r);
 
         return true;
     }
 
-    public List<Donneur> donneursCompatiblesPourReceveur(Long idReceveur) {
-        Receveur r = receveurDAO.findById(idReceveur);
-        return donneurDAO.findDisponibles().stream()
+    public List<Donneur> donneursCompatibles(Long receveurId) {
+        List<Donneur> disponibles = donneurDAO.findDisponibles();
+        if (receveurId == null) return disponibles;
+        Receveur r = receveurDAO.findById(receveurId);
+        return disponibles.stream()
                 .filter(d -> Compatibilite.estCompatible(d.getGroupeSanguin(), r.getGroupeSanguin()))
-                .toList();
+                .collect(Collectors.toList());
     }
 
-    public List<Receveur> receveursCompatiblesPourDonneur(Long idDonneur) {
-        Donneur d = donneurDAO.findById(idDonneur);
-        return receveurDAO.findNonSatisfaits().stream()
+    public List<Receveur> receveursCompatibles(Long donneurId) {
+        List<Receveur> nonSatisfaits = receveurDAO.findNonSatisfaits();
+        if (donneurId == null) return nonSatisfaits;
+        Donneur d = donneurDAO.findById(donneurId);
+        return nonSatisfaits.stream()
                 .filter(r -> Compatibilite.estCompatible(d.getGroupeSanguin(), r.getGroupeSanguin()))
-                .toList();
+                .collect(Collectors.toList());
     }
 }

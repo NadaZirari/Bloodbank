@@ -1,4 +1,5 @@
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" version="5.0">
+
     <servlet>
         <servlet-name>DonneurServlet</servlet-name>
         <servlet-class>servlet.DonneurServlet</servlet-class>
@@ -25,4 +26,5 @@
         <servlet-name>AssociationServlet</servlet-name>
         <url-pattern>/association</url-pattern>
     </servlet-mapping>
+
 </web-app>
