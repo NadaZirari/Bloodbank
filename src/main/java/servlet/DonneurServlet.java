@@ -2,11 +2,12 @@ package servlet;
 
 import service.DonneurService;
 import model.Donneur;
-
+import model.StatutDonneur;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Period;
 
 public class DonneurServlet extends HttpServlet {
 
@@ -29,13 +30,30 @@ public class DonneurServlet extends HttpServlet {
         String sexe = request.getParameter("sexe");
         String groupe = request.getParameter("groupeSanguin");
 
+        // Récupération des maladies cochées
+        String[] maladies = request.getParameterValues("maladies");
+        boolean aContreIndication = (maladies != null && maladies.length > 0);
+
         double poids = Double.parseDouble(poidsStr);
         LocalDate dateNaissance = LocalDate.parse(date);
 
-        Donneur d = new Donneur(nom, prenom, telephone, cin, dateNaissance, poids, sexe, groupe);
+        // Calcul de l'âge
+        int age = Period.between(dateNaissance, LocalDate.now()).getYears();
+
+        // Calcul automatique du statut
+        StatutDonneur statut = StatutDonneur.DISPONIBLE;
+        if (age < 18 || age > 65 || poids < 50 || aContreIndication) {
+            statut = StatutDonneur.NON_ELIGIBLE;
+        }
+
+        // Création du donneur avec statut et contre-indication
+        Donneur d = new Donneur(nom, prenom, telephone, cin, dateNaissance,
+                poids, sexe, groupe,
+                StatutDonneur.DISPONIBLE, false);
         donneurService.ajouterDonneur(d);
 
         response.sendRedirect("donneur");
     }
+
 }
 

@@ -32,6 +32,21 @@ public class Donneur {
     
     // Constructeurs
     public Donneur() {}
+    public Donneur(String nom, String prenom, String telephone, String cin,
+            LocalDate dateNaissance, double poids, String sexe, String groupeSanguin) {
+ this.nom = nom;
+ this.prenom = prenom;
+ this.telephone = telephone;
+ this.cin = cin;
+ this.dateNaissance = dateNaissance;
+ this.poids = poids;
+ this.sexe = sexe;
+ this.groupeSanguin = groupeSanguin;
+
+ // Initialisation automatique
+ this.statut = StatutDonneur.DISPONIBLE;  // par défaut
+ this.contreIndication = false;           // par défaut
+}
 
     public Donneur(String nom, String prenom, String telephone, String cin,
             LocalDate dateNaissance, double poids, String sexe, String groupeSanguin,
