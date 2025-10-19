@@ -100,7 +100,7 @@
         </c:if>
 
         <div class="text-center mt-4">
-            <a href="listeReceveurs.jsp" class="btn btn-secondary">
+            <a href="receveur?action=list" class="btn btn-secondary">
                 <i class="bi bi-arrow-left"></i> Retour à la liste des receveurs
             </a>
         </div>

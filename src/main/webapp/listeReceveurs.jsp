@@ -26,7 +26,8 @@
 <div class="container mt-5">
      <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Liste des Receveurs</h2>
-        <a href="receveurForm.jsp" class="btn btn-success">Ajouter un Receveur</a>
+<a href="receveur?action=form" class="btn btn-success">Ajouter un Receveur</a>
+
     </div>
     <table class="table table-striped table-hover align-middle">
         <thead class="table-dark">
@@ -34,13 +35,15 @@
             <th>Nom</th>
             <th>Prénom</th>
             <th>Téléphone</th>
-            <th>CIN</th>
-            <th>Date de Naissance</th>
+                        <th>Date de Naissance</th>
             <th>Sexe</th>
             <th>Groupe Sanguin</th>
             <th>Situation</th>
             <th>État</th>
             <th>Actions</th>
+                        <th>Associateur</th>
+            
+            
         </tr>
         </thead>
         <tbody>
@@ -49,7 +52,6 @@
                 <td>${r.nom}</td>
                 <td>${r.prenom}</td>
                 <td>${r.telephone}</td>
-                <td>${r.cin}</td>
                 <td>${r.dateNaissance}</td>
                 <td>${r.sexe}</td>
                 <td>${r.groupeSanguin}</td>
@@ -67,11 +69,15 @@
                     </c:choose>
                 </td>
                 <td>
-                    <span class="badge badge-info badge-etat">${r.etat}</span>
-                </td>
+    <span class="badge badge-etat" style="background-color:#e74c3c; color:white;">${r.etat}</span>
+</td>
+                
                 <td>
                     <a href="modifierReceveur?id=${r.id}" class="btn btn-sm btn-outline-warning">Modifier</a>
                     <a href="supprimerReceveur?id=${r.id}" class="btn btn-sm btn-outline-danger">Supprimer</a>
+                </td>
+                 <td>
+<a href="association?receveurId=${r.id}" class="btn btn-sm btn-success">Associer</a>
                 </td>
             </tr>
         </c:forEach>

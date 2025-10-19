@@ -27,7 +27,7 @@ public class AssociationServlet extends HttpServlet {
         Long idReceveur = Long.parseLong(request.getParameter("receveurId"));
 
         associationService.associer(idDonneur, idReceveur);
-        response.sendRedirect("association");
+        response.sendRedirect("association?receveurId=" + idReceveur);
     }
 }
 
