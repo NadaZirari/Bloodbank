@@ -1,0 +1,28 @@
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" version="5.0">
+    <servlet>
+        <servlet-name>DonneurServlet</servlet-name>
+        <servlet-class>com.bloodbank.controller.DonneurServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DonneurServlet</servlet-name>
+        <url-pattern>/donneur</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReceveurServlet</servlet-name>
+        <servlet-class>com.bloodbank.controller.ReceveurServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReceveurServlet</servlet-name>
+        <url-pattern>/receveur</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AssociationServlet</servlet-name>
+        <servlet-class>com.bloodbank.controller.AssociationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AssociationServlet</servlet-name>
+        <url-pattern>/associer</url-pattern>
+    </servlet-mapping>
+</web-app>
