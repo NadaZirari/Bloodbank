@@ -17,16 +17,23 @@ public class ReceveurServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	  String action = request.getParameter("action");
+        String action = request.getParameter("action");
+        String idParam = request.getParameter("id");
 
-    	    if ("form".equals(action)) {
-    	        request.setAttribute("situations", SituationReceveur.values());
-    	        
-    	        request.getRequestDispatcher("receveurForm.jsp").forward(request, response);
-    	    } else { // par défaut : liste
-    	        request.setAttribute("receveurs", receveurService.listerTous());
-    	        request.getRequestDispatcher("listeReceveurs.jsp").forward(request, response);
-    	    }}
+        if ("form".equals(action)) {
+            request.setAttribute("situations", SituationReceveur.values());
+            request.getRequestDispatcher("receveurForm.jsp").forward(request, response);
+        } 
+        else if ("supprimer".equals(action) && idParam != null) {
+            Long id = Long.parseLong(idParam);
+            receveurService.supprimer(id);  
+            response.sendRedirect("receveur"); 
+        }
+        else { 
+            request.setAttribute("receveurs", receveurService.listerTous());
+            request.getRequestDispatcher("listeReceveurs.jsp").forward(request, response);
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,7 +47,7 @@ public class ReceveurServlet extends HttpServlet {
 
         LocalDate dateNaissance = LocalDate.parse(date);
         String situationStr = request.getParameter("situation");
-        SituationReceveur situation = SituationReceveur.valueOf(situationStr);// conversion en enum
+        SituationReceveur situation = SituationReceveur.valueOf(situationStr);
 
         Receveur r = new Receveur(nom, prenom, telephone, cin, dateNaissance, sexe, groupe, situation);
         receveurService.ajouterReceveur(r);

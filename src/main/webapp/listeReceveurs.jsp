@@ -5,6 +5,9 @@
 <head>
     <title>Liste des Receveurs</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Lien Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
     <style>
         body {
             background-color: #fdf6e3;
@@ -73,8 +76,13 @@
 </td>
                 
                 <td>
-                    <a href="modifierReceveur?id=${r.id}" class="btn btn-sm btn-outline-warning">Modifier</a>
-                    <a href="supprimerReceveur?id=${r.id}" class="btn btn-sm btn-outline-danger">Supprimer</a>
+                    <a href="modifierReceveur?id=${r.id}" class="btn btn-sm btn-outline-warning">
+    <i class="bi bi-pencil"></i>
+</a>
+<a href="supprimerReceveur?id=${r.id}" class="btn btn-sm btn-outline-danger">
+    <i class="bi bi-trash"></i>
+</a>
+                    
                 </td>
                  <td>
 <a href="association?receveurId=${r.id}" class="btn btn-sm btn-success">Associer</a>
