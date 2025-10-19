@@ -6,7 +6,6 @@ import model.StatutDonneur;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
-
 public class DonneurService {
 
     private final DonneurDAO dao = new DonneurDAO();

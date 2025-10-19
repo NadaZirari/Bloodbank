@@ -1,5 +1,13 @@
-<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" version="5.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee 
+                             https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
 
+    <!-- === Servlets === -->
+
+    <!-- DonneurServlet -->
     <servlet>
         <servlet-name>DonneurServlet</servlet-name>
         <servlet-class>servlet.DonneurServlet</servlet-class>
@@ -9,6 +17,7 @@
         <url-pattern>/donneur</url-pattern>
     </servlet-mapping>
 
+    <!-- ReceveurServlet -->
     <servlet>
         <servlet-name>ReceveurServlet</servlet-name>
         <servlet-class>servlet.ReceveurServlet</servlet-class>
@@ -18,6 +27,7 @@
         <url-pattern>/receveur</url-pattern>
     </servlet-mapping>
 
+    <!-- AssociationServlet -->
     <servlet>
         <servlet-name>AssociationServlet</servlet-name>
         <servlet-class>servlet.AssociationServlet</servlet-class>
@@ -26,5 +36,10 @@
         <servlet-name>AssociationServlet</servlet-name>
         <url-pattern>/association</url-pattern>
     </servlet-mapping>
+
+    <!-- === Page d’accueil === -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 
 </web-app>

@@ -3,8 +3,11 @@
         <class>model.Donneur</class>
         <class>model.Receveur</class>
         <class>model.Association</class>
+      
+        
+        
         <properties>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bloodbank2"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bloodbankdb2"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>
             <property name="jakarta.persistence.jdbc.password" value="nada123"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
