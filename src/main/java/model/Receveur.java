@@ -18,8 +18,11 @@ public class Receveur {
     private String telephone;
     private String sexe;
     private String groupeSanguin;
-    private String situation; // CRITIQUE, URGENT, NORMAL
-    private String etat; // EN_ATTENTE, SATISFAIT
+    @Enumerated(EnumType.STRING)
+    private SituationReceveur situation;
+
+    @Enumerated(EnumType.STRING)
+    private EtatReceveur etat;
 
     @OneToMany(mappedBy = "receveur", cascade = CascadeType.ALL)
     private List<Donneur> donneurs = new ArrayList<>();
