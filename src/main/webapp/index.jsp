@@ -15,7 +15,7 @@
                 <a href="donneur" class="btn btn-primary btn-lg w-100">Gérer les Donneurs</a>
             </div>
             <div class="col-md-4 mb-3">
-                <a href="receveur" class="btn btn-success btn-lg w-100">Gérer les Receveurs</a>
+<a href="receveur?action=list" class="btn btn-success btn-lg w-100">Gérer les Receveurs</a>
             </div>
             <div class="col-md-4 mb-3">
                 <a href="association" class="btn btn-warning btn-lg w-100">Associer Donneurs & Receveurs</a>

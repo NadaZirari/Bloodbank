@@ -17,9 +17,16 @@ public class ReceveurServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("receveurs", receveurService.listerTous());
-        request.getRequestDispatcher("listeReceveurs.jsp").forward(request, response);
-    }
+    	  String action = request.getParameter("action");
+
+    	    if ("form".equals(action)) {
+    	        request.setAttribute("situations", SituationReceveur.values());
+    	        
+    	        request.getRequestDispatcher("receveurForm.jsp").forward(request, response);
+    	    } else { // par défaut : liste
+    	        request.setAttribute("receveurs", receveurService.listerTous());
+    	        request.getRequestDispatcher("listeReceveurs.jsp").forward(request, response);
+    	    }}
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,15 +37,16 @@ public class ReceveurServlet extends HttpServlet {
         String date = request.getParameter("dateNaissance");
         String sexe = request.getParameter("sexe");
         String groupe = request.getParameter("groupeSanguin");
-        String situationStr = request.getParameter("situation"); // récupéré du formulaire
 
         LocalDate dateNaissance = LocalDate.parse(date);
-        SituationReceveur situation = SituationReceveur.valueOf(situationStr); // conversion en enum
+        String situationStr = request.getParameter("situation");
+        SituationReceveur situation = SituationReceveur.valueOf(situationStr);// conversion en enum
 
         Receveur r = new Receveur(nom, prenom, telephone, cin, dateNaissance, sexe, groupe, situation);
         receveurService.ajouterReceveur(r);
 
-        response.sendRedirect("receveur");
+        request.setAttribute("receveurs", receveurService.listerTous());
+        request.getRequestDispatcher("listeReceveurs.jsp").forward(request, response);
     }
 
 }

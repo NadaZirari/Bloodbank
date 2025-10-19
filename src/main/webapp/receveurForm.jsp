@@ -73,14 +73,17 @@
                 <option>AB-</option>
                 <option>AB+</option>
             </select>
+           
         </div>
         <div class="mb-4">
             <label class="form-label">Situation médicale</label>
             <select name="situation" class="form-select">
-                <c:forEach var="s" items="${T(model.SituationReceveur).values()}">
-                    <option value="${s}">${s}</option>
-                </c:forEach>
+                <option>NORMAL</option>
+                <option>URGENT</option>
+                 <option>CRITIQUE</option>
+                
             </select>
+            
         </div>
         <button type="submit" class="btn btn-primary btn-submit">Ajouter le Receveur</button>
     </form>

@@ -24,8 +24,10 @@
 </head>
 <body>
 <div class="container mt-5">
-    <h2 class="mb-4">Liste des Receveurs</h2>
-
+     <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Liste des Receveurs</h2>
+        <a href="receveurForm.jsp" class="btn btn-success">Ajouter un Receveur</a>
+    </div>
     <table class="table table-striped table-hover align-middle">
         <thead class="table-dark">
         <tr>
