@@ -1,6 +1,7 @@
 package model;
 
 import jakarta.persistence.*;
+import model.Receveur;
 import java.time.LocalDate;
 
 @Entity
@@ -30,6 +31,9 @@ public class Donneur {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receveur_id")  
     private Receveur receveur;
+    
+    private Long receveurId;
+
     
     @Enumerated(EnumType.STRING)
     private StatutDonneur statut;
@@ -102,6 +106,8 @@ public class Donneur {
     public Long getReceveurId() {
         return receveur != null ? receveur.getId() : null;
     }
-    public void setReceveurId(Long receveurId) { this.receveurId = receveurId; }
-}
 
+    public void setReceveurId(Long receveurId) {
+        this.receveurId = receveurId;
+    }
+}

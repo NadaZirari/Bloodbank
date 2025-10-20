@@ -32,6 +32,14 @@ public class DonneurServlet extends HttpServlet {
             return;
         }
 
+        if ("edit".equals(action) && idParam != null) {
+            long id = Long.parseLong(idParam);
+            Donneur donneur = donneurService.chercher(id);
+
+            request.setAttribute("donneur", donneur);
+            request.getRequestDispatcher("donneurForm.jsp").forward(request, response);
+            return;
+        }
         // Sinon, afficher la liste des donneurs
         List<Donneur> donneurs = donneurService.listerTous();
         for (Donneur d : donneurs) {
@@ -53,6 +61,8 @@ public class DonneurServlet extends HttpServlet {
         String poidsStr = request.getParameter("poids");
         String sexe = request.getParameter("sexe");
         String groupe = request.getParameter("groupeSanguin");
+
+        String idParam = request.getParameter("id");
 
         // Récupération des maladies cochées
         String[] maladies = request.getParameterValues("maladies");
@@ -85,8 +95,14 @@ public class DonneurServlet extends HttpServlet {
                 aContreIndication // utiliser le vrai état de contre-indication
         );
 
+        if (idParam != null && !idParam.isEmpty()) {
+            // --- C’est une modification ---
+            long id = Long.parseLong(idParam);
+            d.setId(id);
+            donneurService.mettreAJour(d);
+        } else {
         donneurService.ajouterDonneur(d);
-
+        }
         response.sendRedirect("donneur");
     }
 
