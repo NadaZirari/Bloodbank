@@ -26,9 +26,9 @@ public class Donneur {
 
     @Column(name = "groupe_sanguin")
     private String groupeSanguin;
-    private Long receveurId;
-    @OneToOne
-    @JoinColumn(name = "receveur_id") // colonne FK dans la table donneur
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "receveur_id")  
     private Receveur receveur;
     
     @Enumerated(EnumType.STRING)
@@ -99,7 +99,9 @@ public class Donneur {
     public void setContreIndication(boolean contreIndication) { this.contreIndication = contreIndication; }
     public Receveur getReceveur() { return receveur; }
     public void setReceveur(Receveur receveur) { this.receveur = receveur; }
-    public Long getReceveurId() { return receveurId; }
+    public Long getReceveurId() {
+        return receveur != null ? receveur.getId() : null;
+    }
     public void setReceveurId(Long receveurId) { this.receveurId = receveurId; }
 }
 

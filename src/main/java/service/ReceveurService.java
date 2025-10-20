@@ -22,6 +22,7 @@ public class ReceveurService {
     public void supprimer(Long id) {
         dao.delete(id);
     }
+    
 
     public Receveur chercher(Long id) {
         return dao.findById(id);

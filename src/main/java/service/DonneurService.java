@@ -40,14 +40,13 @@ public class DonneurService {
         return dao.findDisponibles();
     }
 
+   
+    
     public Receveur getReceveurPourDonneur(Long donneurId) {
-        // Ici on suppose qu'on a une méthode dans AssociationDAO pour récupérer par donneur
-        Association assoc = assocDao.findByDonneurId(donneurId);
-        if (assoc != null) {
-            return assoc.getReceveur();
-        }
-        return null;
+        Association assoc = assocDao.findByDonneurId(donneurId); // méthode à créer dans AssociationDAO
+        return assoc != null ? assoc.getReceveur() : null;
     }
+ 
     private StatutDonneur verifierEligibilite(Donneur d) {
         int age = Period.between(d.getDateNaissance(), LocalDate.now()).getYears();
         if (age < 18 || age > 65) return StatutDonneur.NON_ELIGIBLE;

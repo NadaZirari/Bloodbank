@@ -10,7 +10,7 @@
     
     <style>
         body {
-            background-color: #fdf6e3;
+            background-color: #f89c9e; !important;
         }
         h2 {
             color: #2c3e50;
